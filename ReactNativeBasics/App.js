@@ -6,107 +6,84 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+export const App = () => {
+ const [goalInput, setGoalInput] = useState('');
+  return(
+    <SafeAreaView style={styles.mainContainer} >
+        <Text style={styles.headerText} >{"Add You Daily Goal's"}</Text>
+        <View style={styles.inputView} >
+          <TextInput
+            value={ goalInput }
+            placeholder={'Enter Your Goal'}
+            onChangeText={(value) => {
+              setGoalInput(value);
+            }}
+            style={styles.inputText}
+            autoCapitalize={false}
+            autoCorrect={false}
+          />
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <TouchableOpacity style={styles.button} >
+            <Text style={styles.btnText} >{'ADD'}</Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  mainContainer:{
+    flex:1,
+    backgroundColor: 'white'
   },
-  sectionTitle: {
-    fontSize: 24,
+  headerText:{
+    fontSize: 20,
+    alignSelf: 'center',
     fontWeight: '600',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  inputView:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 20,
+    marginHorizontal: 20,
+    justifyContent: 'space-between'
   },
-  highlight: {
-    fontWeight: '700',
+  inputText:{
+    borderWidth: 1,
+    borderColor:'grey',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    width: '80%',
+    borderRadius: 10,
+    color: 'black'
   },
+  button: {
+    width: '18%',
+    backgroundColor: 'blue',
+    borderRadius: 10,
+  },
+  btnText:{
+    fontSize: 13,
+    padding: 10,
+    alignSelf: 'center',
+    color: 'white',
+    fontWeight: '900'
+  }
 });
 
 export default App;
